@@ -23,7 +23,7 @@ let package = Package(
     targets: [
         .target(
             name: "FluentPostGIS",
-            dependencies: ["FluentKit", "FluentPostgresDriver", "WKCodable"]),
+            dependencies: ["FluentKit", "FluentPostgresDriver", "WKCodable", "PostgresNIO"]),
         .testTarget(
             name: "FluentPostGISTests",
             dependencies: [.target(name: "FluentPostGIS"),

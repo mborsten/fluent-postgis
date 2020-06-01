@@ -14,7 +14,7 @@ extension QueryBuilder {
     /// - returns: Query builder for chaining.
     @discardableResult
     public func filterGeometryEquals<F, V>(_ field: KeyPath<Model, F>, _ value: V) -> Self
-        where F: FieldProtocol, V: GeometryConvertible
+        where F: QueryableProperty, V: GeometryConvertible
     {
         return queryGeometryEquals(QueryBuilder.path(field),
                                    QueryBuilder.queryExpressionGeometry(value))

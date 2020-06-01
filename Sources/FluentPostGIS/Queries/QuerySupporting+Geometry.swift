@@ -15,10 +15,12 @@ extension QueryBuilder {
             return name
         case .aggregate:
             return key.description
+        case .prefix:
+            return key.description
         }
     }
     
-    static func path<F>(_ field: KeyPath<Model, F>) -> String where F: FieldProtocol {
+    static func path<F: QueryableProperty>(_ field: KeyPath<Model, F>) -> String {
         return Model.path(for: field).map(Self.key).joined(separator: "_")
     }
 }

@@ -14,7 +14,7 @@ extension QueryBuilder {
     /// - returns: Query builder for chaining.
     @discardableResult
     public func filterGeometryContains<F, V>(_ field: KeyPath<Model, F>, _ value: V) -> Self
-        where F: FieldProtocol, V: GeometryConvertible
+        where F: QueryableProperty, V: GeometryConvertible
     {
         return queryGeometryContains(QueryBuilder.path(field),
                                      QueryBuilder.queryExpressionGeometry(value))
@@ -32,7 +32,7 @@ extension QueryBuilder {
        /// - returns: Query builder for chaining.
        @discardableResult
        public func filterGeometryContains<F, V>(_ value: V, _ field: KeyPath<Model, F>) -> Self
-           where F: FieldProtocol, V: GeometryConvertible
+           where F: QueryableProperty, V: GeometryConvertible
        {
         return queryGeometryContains(QueryBuilder.queryExpressionGeometry(value),
                                      QueryBuilder.path(field))

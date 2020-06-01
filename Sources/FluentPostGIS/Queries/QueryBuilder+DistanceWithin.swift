@@ -4,7 +4,7 @@ import WKCodable
 extension QueryBuilder {
     @discardableResult
     public func filterGeometryDistanceWithin<F,V>(_ field: KeyPath<Model, F>, _ filter: V, _ value: Double) -> Self
-        where F: FieldProtocol, V: GeometryConvertible
+        where F: QueryableProperty, V: GeometryConvertible
     {
         return queryFilterGeometryDistanceWithin(QueryBuilder.path(field),
                                                  QueryBuilder.queryExpressionGeometry(filter),

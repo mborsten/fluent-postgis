@@ -14,7 +14,7 @@ extension QueryBuilder {
     /// - returns: Query builder for chaining.
     @discardableResult
     public func filterGeometryDisjoint<F,V>(_ field: KeyPath<Model, F>, _ value: V) -> Self
-        where F: FieldProtocol, V: GeometryConvertible
+        where F: QueryableProperty, V: GeometryConvertible
     {
         return queryGeometryDisjoint(QueryBuilder.path(field),
                                      QueryBuilder.queryExpressionGeometry(value))
@@ -32,7 +32,7 @@ extension QueryBuilder {
     /// - returns: Query builder for chaining.
     @discardableResult
     public func filterGeometryDisjoint<F,V>(_ value: V, _ field: KeyPath<Model, F>) -> Self
-        where F: FieldProtocol, V: GeometryConvertible
+        where F: QueryableProperty, V: GeometryConvertible
     {
         return queryGeometryDisjoint(QueryBuilder.queryExpressionGeometry(value),
                                      QueryBuilder.path(field))

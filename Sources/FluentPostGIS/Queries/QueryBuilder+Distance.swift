@@ -5,7 +5,7 @@ extension QueryBuilder {
     @discardableResult
     public func filterGeometryDistance<F,V>(_ field: KeyPath<Model, F>, _ filter: V,
                                             _ method: SQLBinaryOperator, _ value: Double) -> Self
-        where F: FieldProtocol, V: GeometryConvertible
+        where F: QueryableProperty, V: GeometryConvertible
     {
         return queryFilterGeometryDistance(QueryBuilder.path(field), QueryBuilder.queryExpressionGeometry(filter),
                                            method, SQLLiteral.numeric(String(value)))

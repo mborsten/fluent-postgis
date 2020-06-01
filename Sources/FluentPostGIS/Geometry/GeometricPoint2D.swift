@@ -34,5 +34,5 @@ extension GeometricPoint2D: GeometryConvertible, GeometryCollectable {
 }
 
 extension GeometricPoint2D: PostGISDataType {
-    static var dataType: DatabaseSchema.DataType { return PostGISDataTypeList.geometricPoint }
+    public static var dataType: DatabaseSchema.DataType { return PostGISDataTypeList.geometricPoint }
 }

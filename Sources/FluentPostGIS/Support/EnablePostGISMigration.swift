@@ -26,4 +26,4 @@ public struct EnablePostGISMigration: Migration {
     }
 }
 
-public var FluentPostGISSrid: UInt = 3785
+public var FluentPostGISSrid: UInt = 4326

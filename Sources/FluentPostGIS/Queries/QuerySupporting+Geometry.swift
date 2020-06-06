@@ -2,6 +2,12 @@ import FluentSQL
 import WKCodable
 
 extension QueryBuilder {
+
+    static func queryExpressionGeometryCasted<T: GeometryConvertible>(_ geometry: T) -> SQLExpression {
+        let geometryText = WKTEncoder().encode(geometry.geometry)
+        return SQLFunctionCast("ST_GeomFromEWKT", args: [SQLLiteral.string(geometryText)])
+    }
+
     static func queryExpressionGeometry<T: GeometryConvertible>(_ geometry: T) -> SQLExpression {
         let geometryText = WKTEncoder().encode(geometry.geometry)
         return SQLFunction("ST_GeomFromEWKT", args: [SQLLiteral.string(geometryText)])
@@ -36,5 +42,34 @@ extension QueryBuilder {
     
     func applyFilter(function: String, value: SQLExpression, path: String) {
         applyFilter(function: function, args: [value, SQLColumn(path)])
+    }
+}
+
+public struct SQLFunctionCast: SQLExpression {
+    public let name: String
+    public let args: [SQLExpression]
+
+
+    public init(_ name: String, args: String...) {
+        self.init(name, args: args.map { SQLIdentifier($0) })
+    }
+
+    public init(_ name: String, args: [String]) {
+        self.init(name, args: args.map { SQLIdentifier($0) })
+    }
+
+    public init(_ name: String, args: SQLExpression...) {
+        self.init(name, args: args)
+    }
+
+    public init(_ name: String, args: [SQLExpression] = []) {
+        self.name = name
+        self.args = args
+    }
+
+    public func serialize(to serializer: inout SQLSerializer) {
+        serializer.write(self.name)
+        SQLGroupExpression(self.args).serialize(to: &serializer)
+        serializer.write("::geography")
     }
 }

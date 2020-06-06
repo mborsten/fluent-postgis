@@ -7,7 +7,7 @@ extension QueryBuilder {
         where F: QueryableProperty, V: GeometryConvertible
     {
         return queryFilterGeometryDistanceWithin(QueryBuilder.path(field),
-                                                 QueryBuilder.queryExpressionGeometry(filter),
+                                                 QueryBuilder.queryExpressionGeometryCasted(filter),
                                                  SQLLiteral.numeric(String(value)))
     }
 }
